@@ -4,12 +4,12 @@ public class MainBinaryTree {
     public static void main(String[] args) {
 
         System.out.println("welcome to Binary Search Tree program");
-        BinaryTree bst = new BinaryTree();
-        INode root = null;
+        BinaryTree<Integer>tree= new BinaryTree<>();
+        tree.add(56);
+        tree.add(30);
+        tree.add(70);
+        tree.print();
 
-        root = bst.insert(root, 56);
-        root = bst.insert(root, 30);
-        root = bst.insert(root, 70);
-        bst.print(root);
     }
-}
+
+    }

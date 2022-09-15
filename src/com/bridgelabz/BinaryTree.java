@@ -1,36 +1,56 @@
 package com.bridgelabz;
+import org.w3c.dom.Node;
+import java.util.ArrayDeque;
+import java.util.Stack;
+import java.util.Queue;
+public class BinaryTree<K extends Comparable<K>> {
 
-public class BinaryTree {
-    public INode insert(INode root, int val) {
+    private INode<K> root;
 
-        if (root == null) {
-            return craeteNewNode(val);
-        }
-        if (val < root.data) {
-            root.left = insert(root.left, val);
-        } else if (val > root.data) {
-            root.right = insert(root.right, val);
-        }
-        return root;
-
-    }
-    public INode craeteNewNode(int k) {
-        INode bst = new INode();
-
-        bst.data = k;
-        bst.left = null;
-        bst.right = null;
-        return bst;
+    public void add(K key) {
+        this.root = this.addRecursively(root, key);
     }
 
-    public void print(INode root) {
-        if (root == null) {
-            return;
-        }
-        print(root.left);
-        System.out.println(root.data);
-        print(root.right);
+    private INode<K> addRecursively(INode<K> current, K key) {
+        if (current == null)
+            return new INode<>(key);
+        int compareResult = key.compareTo(current.key);
+        if (compareResult == 0)
+            return current;
+        if (compareResult < 0) {
+            current.left = addRecursively(current.left, key);
 
+        } else {
+            current.right = addRecursively(current.right, key);
+        }
+        return current;
     }
 
+    public int getSize() {
+        return this.getSizeRecursively(root);
+    }
+
+    private int getSizeRecursively(INode<K> current) {
+        return current == null ? 0 : 1 + this.getSizeRecursively(current.left) + this.getSizeRecursively(current.right);
+    }
+
+    public void print() {
+        printRec(root);
+    }
+
+    void printRec(INode root) {
+        if (root != null) {
+            printRec(root.left);
+            System.out.println(root.key);
+            printRec(root.right);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "BinaryTree [root=" + root + ", getSize()=" + getSize() + ", getClass()=" + getClass() + ", hashCode()="
+                + hashCode() + ", toString()=" + super.toString() + "]";
+
+
+    }
 }
